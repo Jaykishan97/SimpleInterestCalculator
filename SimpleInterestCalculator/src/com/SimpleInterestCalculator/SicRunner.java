@@ -4,25 +4,45 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class SicRunner {
-    public static void main (String[] args) {
 
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter principal: ");
+        // Get user input for principal, interest rate, number of years, and compounding frequency
+        System.out.println("Enter the principal amount:");
         BigDecimal principal = scanner.nextBigDecimal();
 
-        System.out.print("Enter interest rate: ");
-        BigDecimal interest = scanner.nextBigDecimal();
+        System.out.println("Enter the interest rate (as a percentage):");
+        BigDecimal interest = scanner.nextBigDecimal().divide(BigDecimal.valueOf(100), 5, BigDecimal.ROUND_HALF_UP);
 
-        System.out.print("Enter number of years: ");
-        int noOfYears = scanner.nextInt();
+        System.out.println("Enter the number of years:");
+        int years = scanner.nextInt();
 
-        Sic calculator = new Sic(principal, interest);
+        System.out.println("Enter the compounding frequency (1 for annually, 2 for semi-annually, 12 for monthly, etc.):");
+        int compoundFreq = scanner.nextInt();
 
-        BigDecimal totalValue = calculator.calculateTotalValue(noOfYears);
-        System.out.println("Total value after " + noOfYears + " years: " + totalValue);
+        // Validate user input
+        if (principal.compareTo(BigDecimal.ZERO) <= 0) {
+            System.out.println("Error: Principal amount must be greater than zero.");
+            return;
+        }
+        if (interest.compareTo(BigDecimal.ZERO) <= 0) {
+            System.out.println("Error: Interest rate must be greater than zero.");
+            return;
+        }
+        if (years <= 0) {
+            System.out.println("Error: Number of years must be greater than zero.");
+            return;
+        }
+        if (compoundFreq <= 0) {
+            System.out.println("Error: Compounding frequency must be greater than zero.");
+            return;
+        }
 
-        BigDecimal interestValue = calculator.calculateInterest(noOfYears);
-        System.out.println("Total interest earned after " + noOfYears + " years: " + interestValue);
+        Sic calculator = new Sic(principal, interest, years, compoundFreq);
+        BigDecimal totalValue = calculator.calculateTotalValue();
+
+        System.out.println("Total value: " + totalValue);
     }
+
 }
