@@ -14,7 +14,7 @@ public class Sic {
         this.interest = interest;
         this.years = years;
         this.compoundFreq = compoundFreq;
-    }
+    } 
 
     public BigDecimal calculateTotalValue() {
         BigDecimal totalValue = principal.multiply(

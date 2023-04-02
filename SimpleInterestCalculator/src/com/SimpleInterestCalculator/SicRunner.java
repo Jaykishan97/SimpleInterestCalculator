@@ -9,6 +9,8 @@ public class SicRunner {
         Scanner scanner = new Scanner(System.in);
 
         // Get user input for principal, interest rate, number of years, and compounding frequency
+        System.out.println("Hello World"); // Check for new Git Commit    
+
         System.out.println("Enter the principal amount:");
         BigDecimal principal = scanner.nextBigDecimal();
 
